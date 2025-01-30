@@ -17,15 +17,15 @@ Content-Type: application/json
 }
 
 ### Put contact 
-PUT http://localhost:6215/users/679abfab58c12a5d05c6b774 HTTP/1.1
+PUT http://localhost:6215/users/679b0441ecddbdd1c5fdeace HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "aeeee@example.com",
-    "username": "aeeaeaea",
-    "name": "testing!",
-    "ipaddress": "94.121.168.53"
+    "email": "alex@gmail.com",
+    "username": "alexE",
+    "name": "Alexandre",
+    "ipaddress": "0.00.00.00"
 }
 
 ### Delete contact 
-DELETE http://localhost:6215/users/678ef2c56733d9e343a4e4cb
+DELETE http://localhost:6215/users/679b0441ecddbdd1c5fdeace
