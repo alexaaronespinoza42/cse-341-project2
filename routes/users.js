@@ -3,6 +3,8 @@ const { body, param } = require('express-validator');
 const router = express.Router();
 const usersController = require('../controllers/users');
 
+const { isAuthenticated } = require('../middleware/authenticate');
+
 router.get('/', usersController.getAll);
 router.get('/:id', param('id').isMongoId().withMessage('Invalid ID'), usersController.getSingle);
 
@@ -15,7 +17,7 @@ router.post(
         body('favoriteColor').notEmpty().withMessage('Favorite color is required'),
         body('birthday').notEmpty().isISO8601().withMessage('Must be a valid date')
     ],
-    usersController.createUser
+    isAuthenticated, usersController.createUser
 );
 
 router.put(
@@ -25,9 +27,9 @@ router.put(
         body('email').optional().isEmail().withMessage('Must be a valid email address'),
         body('name').optional().notEmpty().withMessage('Name cannot be empty')
     ],
-    usersController.updateUser
+    isAuthenticated, usersController.updateUser
 );
 
-router.delete('/:id', param('id').isMongoId().withMessage('Invalid ID'), usersController.deleteUser);
+router.delete('/:id', param('id').isMongoId().withMessage('Invalid ID'), isAuthenticated, usersController.deleteUser);
 
 module.exports = router;

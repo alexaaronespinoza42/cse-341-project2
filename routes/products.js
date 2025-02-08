@@ -3,6 +3,8 @@ const { body, param } = require('express-validator');
 const router = express.Router();
 const productsController = require('../controllers/products');
 
+const { isAuthenticated } = require('../middleware/authenticate');
+
 router.get('/', productsController.getAllProducts);
 router.get('/:id', param('id').isMongoId().withMessage('Invalid ID'), productsController.getProductById);
 
@@ -17,7 +19,7 @@ router.post(
         body('stock').isInt({ min: 0 }).withMessage('Stock must be a non-negative integer'),
         body('price').isFloat({ min: 0 }).withMessage('Price must be a positive number')
     ],
-    productsController.createProduct
+    isAuthenticated, productsController.createProduct
 );
 
 router.put(
@@ -27,9 +29,9 @@ router.put(
         body('name').optional().notEmpty().withMessage('Name cannot be empty'),
         body('price').optional().isFloat({ min: 0 }).withMessage('Price must be a positive number')
     ],
-    productsController.updateProduct
+    isAuthenticated, productsController.updateProduct
 );
 
-router.delete('/:id', param('id').isMongoId().withMessage('Invalid ID'), productsController.deleteProduct);
+router.delete('/:id', param('id').isMongoId().withMessage('Invalid ID'), isAuthenticated, productsController.deleteProduct);
 
 module.exports = router;
