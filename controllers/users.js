@@ -58,12 +58,10 @@ const updateUser = async (req, res) => {
 
     try {
         const userId = new ObjectId(req.params.id);
-        
-        // Check if the user exists before updating
+
         const existingUser = await mongodb.getDatabase().db().collection('users').findOne({ _id: userId });
         if (!existingUser) return res.status(404).json({ error: 'User not found' });
 
-        // Define fields to update explicitly
         const updatedFields = {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
@@ -72,7 +70,6 @@ const updateUser = async (req, res) => {
             birthday: req.body.birthday
         };
 
-        // Update the user
         const response = await mongodb.getDatabase().db().collection('users').updateOne(
             { _id: userId },
             { $set: updatedFields }
