@@ -18,6 +18,7 @@
   "homepage": "https://github.com/alexaaronespinoza42/cse-341-project2#readme",
   "dependencies": {
     "body-parser": "^1.20.3",
+    "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

@@ -2,7 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const mongodb = require('./data/database');
-const session = require('express-session');
+const session = require('cookie-session');
 const GitHubStrategy = require('passport-github2').Strategy;
 const cors = require('cors'); 
 
